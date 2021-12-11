@@ -29,4 +29,9 @@ export class BoardsService {
     const board: Board = this.boards.find((board) => board.id === id);
     return board;
   }
+
+  deleteBoard(id: string): void {
+    this.boards = this.boards.filter((board) => board.id !== id);
+    // TODO: return result
+  }
 }
