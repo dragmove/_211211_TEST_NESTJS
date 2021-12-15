@@ -12,13 +12,12 @@ export class BoardsService {
     @InjectRepository(BoardRepository) private boardRepository: BoardRepository,
   ) {}
 
-  async getBoardById(id: number): Promise<Board> {
-    const board = await this.boardRepository.findOne(id);
-    if (!board) {
-      throw new NotFoundException(`Can't find a Board with id ${id}`);
-    }
+  async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+    return await this.boardRepository.createBoard(createBoardDto);
+  }
 
-    return board;
+  async getBoardById(id: number): Promise<Board> {
+    return await this.boardRepository.getBoardById(id);
   }
   // private boards: Board[] = [];
   // getAllBoards(): Board[] {
