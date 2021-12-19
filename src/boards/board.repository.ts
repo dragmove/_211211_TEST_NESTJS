@@ -9,7 +9,7 @@ export class BoardRepository extends Repository<Board> {
   async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
     const { title, description } = createBoardDto;
 
-    const board = await this.create({
+    const board: Board = await this.create({
       title,
       description,
       status: BoardStatus.PUBLIC,
@@ -21,7 +21,7 @@ export class BoardRepository extends Repository<Board> {
   }
 
   async getBoardById(id: number): Promise<Board> {
-    const board = await this.findOne(id);
+    const board: Board = await this.findOne(id);
     if (!board) {
       throw new NotFoundException(`Can't find a Board with id ${id}`);
     }
