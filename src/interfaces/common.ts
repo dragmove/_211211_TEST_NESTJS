@@ -1,4 +1,4 @@
-export interface ServiceResult {
+export interface ServiceResult<T = any> {
   message: string;
-  data?: any;
+  data?: T;
 }

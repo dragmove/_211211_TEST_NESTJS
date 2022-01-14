@@ -20,7 +20,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: { username: string }): Promise<ServiceResult> {
+  async validate(payload: { username: string }): Promise<Partial<User>> {
     const { username } = payload;
 
     const user: User = await this.userRepository.findOne({ username });
@@ -29,11 +29,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     return {
-      message: 'ok',
-      data: {
-        id: user.id,
-        username: user.username,
-      },
+      id: user.id,
+      username: user.username,
     };
   }
 }
