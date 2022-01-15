@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Optional,
   Param,
   ParseIntPipe,
@@ -25,6 +26,8 @@ import { BoardStatusValidationPipe } from './pipe/board-status-validation.pipe';
 @Controller('boards')
 @UseGuards(AuthGuard())
 export class BoardsController {
+  private logger = new Logger('BoardsController');
+
   constructor(private boardsService: BoardsService) {}
 
   // @Get('/')
@@ -61,6 +64,10 @@ export class BoardsController {
     @Body() createBoardDto: CreateBoardDto,
     @GetUser() user: User, // jwt.strategy.ts 파일의 validate 함수 실행
   ): Promise<Board> {
+    this.logger.verbose(
+      `User ${user.username} is trying to create a new board`,
+    );
+
     return this.boardsService.createBoard(createBoardDto, user);
   }
 
